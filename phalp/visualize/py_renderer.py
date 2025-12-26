@@ -148,6 +148,7 @@ class Renderer:
         
         color, rend_depth = self.renderer.render(scene, flags=pyrender.RenderFlags.RGBA)
         self.renderer.delete()
+        print("delete renderer")
         color = color.astype(np.float32) / 255.0
         
         return color
