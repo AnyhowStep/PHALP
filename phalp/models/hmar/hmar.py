@@ -44,7 +44,7 @@ class HMAR(nn.Module):
                                         pool='pooled')
         
     def load_weights(self, path):
-        checkpoint_file = torch.load(path, weights_only=False)
+        checkpoint_file = torch.load(path, map_location='cuda:0', weights_only=False)
         state_dict_filt = {}
         for k, v in checkpoint_file['model'].items():
             if ("encoding_head" in k or "texture_head" in k or "backbone" in k or "smplx_head" in k): 
