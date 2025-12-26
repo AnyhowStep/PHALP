@@ -147,6 +147,7 @@ class Renderer:
         self.add_lighting(scene, camera_node)
         
         color, rend_depth = self.renderer.render(scene, flags=pyrender.RenderFlags.RGBA)
+        self.renderer.delete()
         color = color.astype(np.float32) / 255.0
         
         return color
