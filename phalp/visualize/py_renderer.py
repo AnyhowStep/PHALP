@@ -101,6 +101,7 @@ class Renderer:
         self.roughnessFactor = roughnessFactor
     
     def __del__(self):
+        self.renderer.delete()
         del self.renderer
     
     def visualize_all(self, vertices, camera_translation, color, images, use_image=True):

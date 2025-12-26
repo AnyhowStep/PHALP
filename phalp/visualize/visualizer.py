@@ -50,7 +50,6 @@ class Visualizer(nn.Module):
             self.face_detector = MTCNN(keep_all=True, device="cuda")
 
     def reset_render(self, image_size):
-        self.render.delete()
         del self.render
         self.render = None
         self.render = Renderer(focal_length=self.cfg.EXTRA.FOCAL_LENGTH, img_res=image_size, faces=self.faces_cpu, 
