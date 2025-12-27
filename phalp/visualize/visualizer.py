@@ -376,6 +376,7 @@ class Visualizer(nn.Module):
 
                     final_visuals_dic.setdefault("smpl_joints", {})
                     print(type(ids_x))
+                    print(ids_x.tolist())
                     final_visuals_dic["smpl_joints"][ids_x] = joints.tolist()
 
                 if "MASK" in self.cfg.render.type or "BBOX" in self.cfg.render.type:
