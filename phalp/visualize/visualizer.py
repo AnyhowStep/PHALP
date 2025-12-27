@@ -374,8 +374,7 @@ class Visualizer(nn.Module):
                     rendered_image_final = valid_mask*rendered_image_final + (1-valid_mask)*image_resized_rgb
                     rendered_image_final = rendered_image_final[:, :, top_:top_+img_height_, left_:left_+img_width_]
 
-                    final_visuals_dic.setdefault("smpl_joints", {})
-                    final_visuals_dic["smpl_joints"][tracked_ids_x] = joints.tolist()
+                    final_visuals_dic.setdefault("smpl_joints", joints.tolist())
 
                 if "MASK" in self.cfg.render.type or "BBOX" in self.cfg.render.type:
                     seg_mask = tracked_mask[ids_x]
