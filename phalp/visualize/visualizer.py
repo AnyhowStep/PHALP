@@ -76,7 +76,7 @@ class Visualizer(nn.Module):
 
         rgb_from_pred, validmask = self.render.visualize_all(pred_vertices.numpy(), pred_cam_t_bs.cpu().numpy(), color, image, use_image=use_image)
         
-        return rgb_from_pred, validmask
+        return rgb_from_pred, validmask, smpl_output.joints.cpu().numpy()
     
     def draw_text(self, image, text, xy, bg_color=(255, 255, 255)):
 
@@ -356,7 +356,7 @@ class Visualizer(nn.Module):
             if(len(tracked_ids_x)>0):
                 
                 if "MESH" in self.cfg.render.type:
-                    rendered_image_final, valid_mask  = self.render_single_frame(
+                    rendered_image_final, valid_mask, joints  = self.render_single_frame(
                                                                             tracked_smpl[ids_x],
                                                                             tracked_cameras[ids_x],
                                                                             tracked_colors, 
@@ -373,6 +373,9 @@ class Visualizer(nn.Module):
                     
                     rendered_image_final = valid_mask*rendered_image_final + (1-valid_mask)*image_resized_rgb
                     rendered_image_final = rendered_image_final[:, :, top_:top_+img_height_, left_:left_+img_width_]
+
+                    final_visuals_dic.setdefault("smpl_joints", {})
+                    final_visuals_dic["smpl_joints"][ids_x] = joints
 
                 if "MASK" in self.cfg.render.type or "BBOX" in self.cfg.render.type:
                     seg_mask = tracked_mask[ids_x]
